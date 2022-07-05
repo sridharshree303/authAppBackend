@@ -119,7 +119,7 @@ public class UserServicesImplm implements UserServices {
 			}
 		} else {
 			LOG.info("Invalid user crediantials");
-			throw new DataNotFoundException("Invalid user login crediantials");
+			throw new UserNameNotFoundException("Invalid user login crediantials");
 		}
 	}
 

@@ -63,7 +63,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(UserNameNotFoundException.class)
 	public ResponseEntity<Object> handleUserNameNotFoundException(){
 		LOG.error("handleUserNameNotFoundException");
-		String msg = "Username not Exists";
+		String msg = "Couldn't find your Username";
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", msg);
 		return new ResponseEntity<Object>(msg,headers,HttpStatus.NOT_FOUND);
@@ -72,7 +72,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(PasswordNotMatchException.class)
 	public ResponseEntity<Object> handlePasswordNotMatchException(){
 		LOG.error("handlePasswordNotMatchException");
-		String msg = "Password does not matched";
+		String msg = "Wrong password. Try again.. ";
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", msg);
 		return new ResponseEntity<Object>(msg,headers,HttpStatus.UNAUTHORIZED);
