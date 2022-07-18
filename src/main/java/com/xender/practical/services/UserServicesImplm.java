@@ -56,12 +56,17 @@ public class UserServicesImplm implements UserServices {
 		Integer baseId = 10000;
 		List<UserData> list = userRepository.findAll();
 		Integer len = list.size();
-		UserData lastuser = list.get(--len);
-		Integer lastId = lastuser.getUserid();
-		Integer newUserid = lastId + 1;
-//		System.out.println(newUserid);
-		user.setUserid(newUserid);
-
+		
+		if(len != 0) {
+			UserData lastuser = list.get(--len);
+			Integer lastId = lastuser.getUserid();
+			Integer newUserid = lastId + 1;
+			user.setUserid(newUserid);
+		}else {
+			Integer newUserId = baseId+1;
+			user.setUserid(newUserId);
+		}
+		
 		// validating user and registering data
 		UserData validmobile = userRepository.findByMobileNumber(user.getMobileNumber());
 		UserData validemail = userRepository.findByEmail(user.getEmail());
