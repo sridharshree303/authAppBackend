@@ -36,7 +36,6 @@ public class UserServicesImplm implements UserServices {
 		LOG.info("get allUser service");
 		List<UserData> list = userRepository.findAll();
 		int len = list.size();
-//		System.out.println(len);
 		if (0 != list.size()) {
 			LOG.info("Users data found");
 			return list;
@@ -56,47 +55,91 @@ public class UserServicesImplm implements UserServices {
 		Integer baseId = 10000;
 		List<UserData> list = userRepository.findAll();
 		Integer len = list.size();
-		
-		if(len != 0) {
+
+		if (len != 0) {
 			UserData lastuser = list.get(--len);
 			Integer lastId = lastuser.getUserid();
 			Integer newUserid = lastId + 1;
 			user.setUserid(newUserid);
-		}else {
-			Integer newUserId = baseId+1;
+		} else {
+			Integer newUserId = baseId + 1;
 			user.setUserid(newUserId);
 		}
-		
+
 		// validating user and registering data
 		UserData validmobile = userRepository.findByMobileNumber(user.getMobileNumber());
 		UserData validemail = userRepository.findByEmail(user.getEmail());
 		UserData validusername = userRepository.findByUsername(user.getUsername());
 
-		if (null == validemail || null == validmobile ||  null == validusername) {
+		boolean email = false;
+		boolean usrname = false;
+		boolean mobilenumber= false;
+
+		if (null == validemail || null == validmobile || null == validusername) {
 			LOG.info("user validated");
+			
 			if (null == validemail) {
 				LOG.info("validated email");
-				if (null == validusername) {
-					LOG.info("validated username");
-					if (null == validmobile) {
-						LOG.info(" validated mobilenumber");
-						return userRepository.save(user);
-					} else {
-						LOG.info("Mobile number already exists");
-						throw new MobileNumberAlreadyExistsException("Mobile number already exists");
-					}
-				} else {
-					LOG.info("Username already exists");
-					throw new UserNameAlreadyeExistsException("Username already exists");
-				}
-			} else {
+				email = true;
+			}else {
 				LOG.info("Email already exists");
 				throw new EmailAlreadyExistsException("email is already registered");
 			}
-		} else {
+			
+			if(null == validusername) {
+				LOG.info("validated username");
+				usrname = true;
+			}else {
+				LOG.info("Username already exists");
+				throw new UserNameAlreadyeExistsException("Username already exists");
+			}
+			
+			if(null == validmobile) {
+				LOG.info(" validated mobilenumber");
+				mobilenumber = true;
+			}else {
+				LOG.info("Mobile number already exists");
+				throw new MobileNumberAlreadyExistsException("Mobile number already exists");
+			}
+			
+			if(email && usrname && mobilenumber) {
+				LOG.info("data registered successfully");
+				return userRepository.save(user);
+			}else {
+				LOG.info("User already registred");
+				throw new DataAlreadyExistsException("User already registred");
+			}
+			
+		}else {
 			LOG.info("User already registred");
 			throw new DataAlreadyExistsException("User already registred");
 		}
+
+//		if (null == validemail || null == validmobile || null == validusername) {
+//			LOG.info("user validated");
+//			if (null == validemail) {
+//				LOG.info("validated email");
+//				if (null == validusername) {
+//					LOG.info("validated username");
+//					if (null == validmobile) {
+//						LOG.info(" validated mobilenumber");
+//						return userRepository.save(user);
+//					} else {
+//						LOG.info("Mobile number already exists");
+//						throw new MobileNumberAlreadyExistsException("Mobile number already exists");
+//					}
+//				} else {
+//					LOG.info("Username already exists");
+//					throw new UserNameAlreadyeExistsException("Username already exists");
+//				}
+//			} else {
+//				LOG.info("Email already exists");
+//				throw new EmailAlreadyExistsException("email is already registered");
+//			}
+//		} else {
+//			LOG.info("User already registred");
+//			throw new DataAlreadyExistsException("User already registred");
+//		}
 
 	}
 

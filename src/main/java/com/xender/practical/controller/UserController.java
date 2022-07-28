@@ -58,6 +58,7 @@ public class UserController {
 		return response;
 	}
 	
+	
 	@PostMapping("/register")
 	@ResponseStatus(code = HttpStatus.CREATED, reason = "CREATED")
 	public ResponseEntity<UserData> registeruser(@RequestBody UserData user) throws DataAlreadyExistsException,
