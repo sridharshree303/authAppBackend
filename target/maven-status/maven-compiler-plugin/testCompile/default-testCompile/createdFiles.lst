@@ -1,0 +1,4 @@
+com\xender\practical\AuthApplicationTests.class
+com\xender\practical\modal\UserDatatests.class
+com\xender\practical\services\UserServicesTest.class
+com\xender\practical\exception\handleExceptionTests.class

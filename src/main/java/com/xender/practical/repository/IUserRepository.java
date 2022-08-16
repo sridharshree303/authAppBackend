@@ -10,9 +10,11 @@ import com.xender.practical.model.UserData;
 public interface IUserRepository extends JpaRepository<UserData, Integer> {
 	
 	public abstract UserData findByUsername(String username);
-	public abstract UserData findByEmail(String email);
-	public abstract UserData findByMobileNumber(Long mobileNumber);
+	public UserData findByEmail(String email);
+	public abstract UserData findByMobileNumber(String string);
 	public abstract UserData findByUserid(Integer userid);
+	
+	
 
 //	public User findByUser_email(String user_email,String user_mobile,String user_name);
 //	public String findByUser_email(String user_email);

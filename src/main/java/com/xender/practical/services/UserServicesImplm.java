@@ -74,6 +74,7 @@ public class UserServicesImplm implements UserServices {
 		boolean email = false;
 		boolean usrname = false;
 		boolean mobilenumber= false;
+		
 
 		if (null == validemail || null == validmobile || null == validusername) {
 			LOG.info("user validated");
@@ -146,25 +147,19 @@ public class UserServicesImplm implements UserServices {
 	@SuppressWarnings("unused")
 	@Override
 	public UserData login(UserData user)
-			throws DataNotFoundException, PasswordNotMatchException, UserNameNotFoundException {
+			throws PasswordNotMatchException, UserNameNotFoundException {
 		LOG.info("Login service");
 		tempUser = userRepository.findByUsername(user.getUsername());
 		if (tempUser != null) {
-			if (user.getUsername().equals(tempUser.getUsername())) {
-				LOG.info("Username validated");
 				if (user.getPassword().equals(tempUser.getPassword())) {
 					LOG.info("Password validated");
 					LOG.info("Login succesfull");
 					isLogged = true;
-					return tempUser;
+					return tempUser; 
 				} else {
 					LOG.info("Entered Wrong password");
 					throw new PasswordNotMatchException("Invalid password");
 				}
-			} else {
-				LOG.info("Entered Wrong username");
-				throw new UserNameNotFoundException("Invalid username");
-			}
 		} else {
 			LOG.info("Invalid user crediantials");
 			throw new UserNameNotFoundException("Invalid user login crediantials");

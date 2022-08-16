@@ -3,6 +3,8 @@ package com.xender.practical.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.context.annotation.Bean;
+
 @Entity
 public class UserData
 {
@@ -13,7 +15,22 @@ public class UserData
 	private String email;
 	private String username;
 	private String password;
-	private Long mobileNumber;
+	private String mobileNumber;
+	
+	
+	public UserData() {
+
+	}
+
+	public UserData(Integer userid, String name, String email, String username, String password, String mobileNumber) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.mobileNumber = mobileNumber;
+	}
 	
 	public Integer getUserid() {
 		return userid;
@@ -45,12 +62,19 @@ public class UserData
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Long getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
-	public void setMobileNumber(Long mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserData [userid=" + userid + ", name=" + name + ", email=" + email + ", username=" + username
+				+ ", password=" + password + ", mobileNumber=" + mobileNumber + "]";
+	}
+	
 	
 	
 }
