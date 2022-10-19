@@ -34,8 +34,6 @@ import com.xender.practical.services.UserServicesImplm;
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
-@ResponseBody
-@ResponseStatus
 public class UserController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
